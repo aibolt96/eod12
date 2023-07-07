@@ -148,7 +148,7 @@ document.getElementById('repeat-button').addEventListener('click', repeatMyParam
 
 // CODE HERE
 function queryButton(){
-    axios.get(`http://localhost:3000/query-test?name=Austin`)
+    axios.get(`http://localhost:3000/query-test?name=Austin&name=Jinx`)
     .then(res => {
         console.log(res.data)
     })
@@ -208,3 +208,33 @@ document.getElementById('query-button').addEventListener('click', queryButton)
 */
 
 // CODE HERE 
+
+let foodInput = document.querySelector('#foodInput')
+let foodForm = document.querySelector('#foodForm')
+let foodList = document.querySelector('#foodList')
+
+function newFoodHandler(event){
+    event.preventDefault()
+    let body = {
+        newFood: foodInput.value
+    }
+    axios.post('http://localhost:3000/food', body)
+    .then(res => {
+        console.log(res.data);
+        foodList.textContent = ''
+        for (let i=0; i<res.data.length; i++){
+            displayFoods(res.data[i])
+        }
+    })
+
+    .catch(error => console.log(error))
+}
+
+function displayFoods(food){
+    
+    let foodItem = document.createElement('li')
+    foodItem.textContent = food;
+    foodList.appendChild(foodItem)
+}
+
+foodForm.addEventListener('submit', newFoodHandler)
