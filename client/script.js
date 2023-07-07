@@ -81,7 +81,11 @@ const ohMy = () => {
     // YOUR CODE HERE
     axios.get(`http://localhost:3000/animals`)
     .then(res => {
-        console.log(res.data)
+        for (let i=0; i<res.data.length; i++){
+            const pElement = document.createElement('p');
+            pElement.textContent = res.data[i];
+            document.body.appendChild(pElement);
+        }
     })
     .catch(error => {
         console.log(error)
@@ -171,8 +175,9 @@ document.getElementById('query-button').addEventListener('click', queryButton)
     In the function that you wrote for Problem 8, change the URL to test a couple different scenarios. 
 
     1: Send no queries on the URL -- what happened? 
-
+    gives an error in the terminal
     2: Send more than 1 query on the URL -- what happened? 
+    didnt give an error but it just put the 2nd query in the string in the console
 */
 
 // Edit code in Problem 8
